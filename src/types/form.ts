@@ -1,9 +1,8 @@
 export type Inputs = {
-  name : string,
-  petname : string,
-  owner : string,
-  date : string,
-  time : string,
-  description : string
+  petName: string,
+  ownerName: string,
+  aptDate: string,
+  aptTime: string,
+  aptNotes: string,
 }
 

@@ -37,7 +37,7 @@ const Appointment = () => {
 					<h1 className="text-2xl font-semibold">Your Appointements</h1>
 				</div>
 				<div className="border border-[#ccc] rounded">
-					<Form />
+					<Form arr={data} setApp={setData}/>
 				</div>
 				<div>
 					<Search search={src} change={handleChange} />

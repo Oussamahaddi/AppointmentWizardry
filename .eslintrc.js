@@ -39,13 +39,13 @@ module.exports = {
 		// 	"error",
 		// 	"windows"
 		// ],
-		"quotes": [
-			"error",
-			"double"
-		],
-		"semi": [
-			"error",
-			"never"
-		]
+		// "quotes": [
+		// 	"error",
+		// 	"double"
+		// ],
+		// "semi": [
+		// 	"error",
+		// 	"never"
+		// ]
 	}
 }
