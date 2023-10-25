@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
-import Appointment from './pages/Appointment';
+import React from "react"
+import "./App.css"
+import Appointment from "./pages/Appointment"
 
 function App() {
-  return (
-    <div className="App">
-      <Appointment />
-    </div>
-  );
+	return (
+		<div className="App">
+			<Appointment />
+		</div>
+	)
 }
 
-export default App;
+export default App
