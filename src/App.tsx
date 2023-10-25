@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Form from './components/form/form';
+import Appointment from './pages/Appointment';
 
 function App() {
   return (
     <div className="App">
-      <Form />
+      <Appointment />
     </div>
   );
 }
