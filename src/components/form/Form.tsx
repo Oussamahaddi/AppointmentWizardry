@@ -3,8 +3,11 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { LuCalendarCheck } from "react-icons/lu"
 import Button from "../buttons/Button"
 import { Data, Inputs } from "../../types"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
-// eslint-disable-next-line react/prop-types
+
+// eslint-disable-next-line react/prop-types, @typescript-eslint/no-explicit-any
 const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 
 	const {
@@ -21,10 +24,21 @@ const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 			aptNotes: data.aptNotes,
 		}
 		setApp([...arr, newData])
+		toast.success("Appointment created succussfully")
 	}
 
 	return (
 		<>
+			<ToastContainer
+				position="top-right"
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={true}
+				closeOnClick
+				rtl={false}
+				draggable
+				theme="dark"
+			/>
 			<div className="w-full bg-[#60a5fa] rounded-t flex items-center gap-2 p-3 text-white">
 				<LuCalendarCheck />
 				<span>Add Appointement</span>
@@ -40,7 +54,7 @@ const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 						{...register("petName", { 
 							required: "This field can't be null",
 							pattern: {
-								value : /^[a-zA-Z0-9]+$/gi,
+								value : /^[a-zA-Z]+$/gi,
 								message : "Invalide characters"
 							},
 							minLength : {
@@ -65,7 +79,7 @@ const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 						{...register("ownerName", { 
 							required: "This field can't be null", 
 							pattern : {
-								value : /^[a-zA-Z0-9]+$/gi,
+								value : /^[a-zA-Z]+[\s]+[a-zA-Z]+$/gi,
 								message : "Invalide characters"
 							},
 							minLength : {
@@ -79,7 +93,7 @@ const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 						})}
 					/>
 				</div>
-				{errors.aptDate && <div className="text-red-400">{errors.aptDate?.message}</div>}
+				{errors.ownerName && <div className="text-red-400">{errors.ownerName?.message}</div>}
 				<div className="w-full flex justify-between">
 					<label htmlFor="date">Apt Date</label>
 					<input
