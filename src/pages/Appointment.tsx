@@ -45,7 +45,7 @@ const Appointment = () => {
 				<div>
 					{
 						data.filter(item => {
-							return (item.petName && item.ownerName).toLowerCase().includes(src.toLocaleLowerCase())
+							return (item.petName).toLowerCase().includes(src.toLocaleLowerCase())
 						}).map((item , index) => (
 							<Appoi key={index} appointment={item} />
 						))

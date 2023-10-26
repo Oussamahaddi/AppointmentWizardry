@@ -44,113 +44,125 @@ const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 				<span>Add Appointement</span>
 			</div>
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 p-4">
-				<div className="w-full flex justify-between">
-					<label htmlFor="petName">Owner Name</label>
-					<input
-						type="text"
-						id="petName"
-						placeholder="Pet name"
-						className="border border-[#ccc] px-2 py-1 rounded w-4/6"
-						{...register("petName", { 
-							required: "This field can't be null",
-							pattern: {
-								value : /^[a-zA-Z]+$/gi,
-								message : "Invalide characters"
-							},
-							minLength : {
-								value : 3,
-								message : "Must be more than 3 character"
-							},
-							maxLength: {
-								value: 20,
-								message: "Must be more less than 20 character.",
-							}
-						})}
-					/>
+				<div className="w-full grid grid-cols-[1fr_2fr]">
+					<label className="text-left" htmlFor="petName">Owner Name</label>
+					<div className="flex flex-col items-start">
+						<input
+							type="text"
+							id="petName"
+							placeholder="Pet name"
+							className="w-full border border-[#ccc] px-2 py-1 rounded md:w-3/6"
+							{...register("petName", { 
+								required: "This field can't be null",
+								pattern: {
+									value : /^[a-zA-Z0-9]+$/gi,
+									message : "Invalide characters"
+								},
+								minLength : {
+									value : 3,
+									message : "Must be more than 3 character"
+								},
+								maxLength: {
+									value: 20,
+									message: "Must be more less than 20 character.",
+								}
+							})}
+						/>
+						{errors.petName && <div className="text-red-400">{errors.petName?.message}</div>}
+					</div>
 				</div>
-				{errors.petName && <div className="text-red-400">{errors.petName?.message}</div>}
-				<div className="w-full flex justify-between">
-					<label htmlFor="ownerName">Pet Name</label>
-					<input
-						type="text"
-						id="ownerName"
-						placeholder="pet name"
-						className="border border-[#ccc] px-2 py-1 rounded w-4/6"
-						{...register("ownerName", { 
-							required: "This field can't be null", 
-							pattern : {
-								value : /^[a-zA-Z]+[\s]+[a-zA-Z]+$/gi,
-								message : "Invalide characters"
-							},
-							minLength : {
-								value : 3,
-								message : "Must be more than 3 character"
-							},
-							maxLength: {
-								value: 20,
-								message: "Must be more less than 20 character.",
-							}
-						})}
-					/>
+				<div className="w-full grid grid-cols-[1fr_2fr]">
+					<label className="text-left" htmlFor="ownerName">Pet Name</label>
+					<div className="flex flex-col items-start">
+						<input
+							type="text"
+							id="ownerName"
+							placeholder="pet name"
+							className="w-full border border-[#ccc] px-2 py-1 rounded md:w-3/6"
+							{...register("ownerName", { 
+								required: "This field can't be null", 
+								pattern : {
+									value : /^[a-zA-Z]+[\s]+[a-zA-Z]+$/gi,
+									message : "Invalide characters"
+								},
+								minLength : {
+									value : 3,
+									message : "Must be more than 3 character"
+								},
+								maxLength: {
+									value: 20,
+									message: "Must be more less than 20 character.",
+								}
+							})}
+						/>
+						{errors.ownerName && <div className="text-red-400">{errors.ownerName?.message}</div>}
+					</div>
 				</div>
-				{errors.ownerName && <div className="text-red-400">{errors.ownerName?.message}</div>}
-				<div className="w-full flex justify-between">
-					<label htmlFor="date">Apt Date</label>
-					<input
-						type="date"
-						id="date"
-						placeholder="hellow"
-						className="border border-[#ccc] px-2 py-1 rounded w-4/6"
-						{...register("aptDate", { 
-							required: "This field can't be null",
-							pattern : {
-								value : /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/,
-								message : "Date must be a valid date in the format YYYY-MM-DD"
-							}
-						})}
-					/>	
+				<div className="w-full grid grid-cols-[1fr_2fr]">
+					<label className="text-left" htmlFor="date">Apt Date</label>
+					<div className="flex flex-col items-start">
+						<input
+							type="date"
+							id="date"
+							placeholder="hellow"
+							className="w-full border border-[#ccc] px-2 py-1 rounded md:w-3/6"
+							{...register("aptDate", { 
+								required: "This field can't be null",
+								pattern : {
+									value : /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/,
+									message : "Date must be a valid date in the format YYYY-MM-DD"
+								}
+							})}
+						/>	
+						{errors.aptDate && <div className="text-red-400">{errors.aptDate?.message}</div>}
+					</div>
 				</div>
-				{errors.aptDate && <div className="text-red-400">{errors.aptDate?.message}</div>}
-				<div className="w-full flex justify-between">
-					<label htmlFor="date">Apt Time</label>
-					<input
-						type="time"
-						placeholder="hellow"
-						className="border border-[#ccc] px-2 py-1 rounded w-4/6"
-						{...register("aptTime", { 
-							required: "This field can't be null", 
-							pattern : {
-								value : /([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}/,
-								message : "Invalide characters"
-							}
-						})}
-					/>
+				<div className="w-full grid grid-cols-[1fr_2fr]">
+					<label className="text-left" htmlFor="date">Apt Time</label>
+					<div className="w-full">
+						<div className="flex flex-col items-start">
+							<input
+								type="time"
+								placeholder="hellow"
+								className="w-full border border-[#ccc] px-2 py-1 rounded md:w-3/6"
+								{...register("aptTime", { 
+									required: "This field can't be null", 
+									pattern : {
+										value : /^\d([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}$/,
+										message : "Invalide characters"
+									}
+								})}
+							/>
+							{errors.aptTime && <div className="text-red-400">{errors.aptTime?.message}</div>}
+						</div>
+					</div>
 				</div>
-				{errors.aptTime && <div className="text-red-400">{errors.aptTime?.message}</div>}
-				<div className="w-full flex justify-between">
-					<label htmlFor="aptNotes">Appointment Note</label>
-					<textarea
-						id="aptNotes"
-						placeholder="Details Comments about the condition"
-						className="border border-[#ccc] px-2 py-1 rounded w-4/6"
-						{...register("aptNotes", { 
-							required: "This field can't be null", 
-							pattern : {
-								value : /^[a-zA-Z0-9]+$/gi,
-								message : "Invalide characters"
-							},
-							minLength : {
-								value : 5,
-								message : "Must be more than 3 character"
-							},
-							maxLength: {
-								value: 255,
-								message: "This input exceed maxLength.",
-							}
-						})}
-					></textarea>
+				<div className="w-full grid grid-cols-[1fr_2fr]">
+					<label className="text-left" htmlFor="aptNotes">Appointment Note</label>
+					<div className="flex flex-col items-start">
+						<textarea
+							id="aptNotes"
+							placeholder="Details Comments about the condition"
+							className="border border-[#ccc] px-2 py-1 rounded md:w-full"
+							{...register("aptNotes", { 
+								required: "This field can't be null", 
+								pattern : {
+									value : /^[a-zA-Z0-9]+$/gi,
+									message : "Invalide characters"
+								},
+								minLength : {
+									value : 5,
+									message : "Must be more than 3 character"
+								},
+								maxLength: {
+									value: 255,
+									message: "This input exceed maxLength.",
+								}
+							})}
+						></textarea>
+						{errors.aptNotes && <div className="text-red-400">{errors.aptNotes?.message}</div>}
+					</div>
 				</div>
-				{errors.aptNotes && <div className="text-red-400">{errors.aptNotes?.message}</div>}
 				<Button
 					text="submit"
 					btnColor="bg-[#60a5fa] text-white px-4 py-2 rounded w-fit self-end"
