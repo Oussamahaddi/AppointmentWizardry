@@ -12,6 +12,7 @@ const Appointment = () => {
 	const [data, setData] = useState<AppoiT[]>([])
 	const [isLoaded, setIsLoaded] = useState(false)
 	const [src , setSrc] = useState<string>("")
+	
 	const [filtering, setFiltring] = useState<FilterAndSortT>({
 		filter: "petName",
 		sort: "Asc"
@@ -21,6 +22,10 @@ const Appointment = () => {
 		const { data } = await http.get<AppoiT[]>("data.json")
 		setData(data)
 		setIsLoaded(true)
+	}
+
+	const deleteAppoint = (item : AppoiT)  => {
+		setData(data.filter(ele => ele.id !== item.id))
 	}
 
 	useEffect(() => {
@@ -52,10 +57,12 @@ const Appointment = () => {
 								return filtering.sort === "Asc" ? a.petName > b.petName ? 1 : -1 : a.petName > b.petName ? -1 : 1
 							if (filtering.filter === "ownerName")
 								return filtering.sort === "Asc" ? a.ownerName > b.ownerName ? 1 : -1 : a.ownerName > b.ownerName ? -1 : 1
+							if (filtering.filter === "aptDate")
+								return filtering.sort === "Asc" ? a.aptDate > b.aptDate ? 1 : -1 : a.aptDate > b.aptDate ? -1 : 1
 							else 
 								return 0
 						}).map((item , index) => (
-							<Appoi key={index} appointment={item} />
+							<Appoi key={index} deleteAppoint={deleteAppoint} appointment={item} />
 						))
 					}
 				</div>
