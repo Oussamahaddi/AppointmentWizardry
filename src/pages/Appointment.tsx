@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Data } from "../types"
+import { AppoiT, FilterAndSortT } from "../types"
 import { http } from "../lib/http"
 import {LuCalendarDays} from "react-icons/lu"
 import Form from "../components/form/Form"
@@ -9,18 +9,18 @@ import LoadingSpinner from "../components/LoadingSpinner"
 
 const Appointment = () => {
 
-	const [data, setData] = useState<Data[]>([])
+	const [data, setData] = useState<AppoiT[]>([])
 	const [isLoaded, setIsLoaded] = useState(false)
 	const [src , setSrc] = useState<string>("")
+	const [filtering, setFiltring] = useState<FilterAndSortT>({
+		filter: "petName",
+		sort: "Asc"
+	});
 
 	const getData = async () => {
-		const { data } = await http.get<Data[]>("data.json")
+		const { data } = await http.get<AppoiT[]>("data.json")
 		setData(data)
 		setIsLoaded(true)
-	}
-
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSrc(e.target.value)
 	}
 
 	useEffect(() => {
@@ -39,13 +39,21 @@ const Appointment = () => {
 				<div className="border border-[#ccc] rounded">
 					<Form arr={data} setApp={setData}/>
 				</div>
+				
 				<div>
-					<Search search={src} change={handleChange} />
+					<Search search={src} setSrc={setSrc} filtering={filtering} setFiltring={setFiltring} />
 				</div>
 				<div>
 					{
-						data.filter(item => {
+						data.filter((item : AppoiT) => {
 							return (item.petName).toLowerCase().includes(src.toLocaleLowerCase())
+						}).sort((a, b) => {
+							if (filtering.filter === "petName")
+								return filtering.sort === "Asc" ? a.petName > b.petName ? 1 : -1 : a.petName > b.petName ? -1 : 1
+							if (filtering.filter === "ownerName")
+								return filtering.sort === "Asc" ? a.ownerName > b.ownerName ? 1 : -1 : a.ownerName > b.ownerName ? -1 : 1
+							else 
+								return 0
 						}).map((item , index) => (
 							<Appoi key={index} appointment={item} />
 						))

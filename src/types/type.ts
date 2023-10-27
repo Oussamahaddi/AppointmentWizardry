@@ -1,4 +1,5 @@
-export type Data = {
+export type AppoiT = {
+    id : number,
     petName: string,
     ownerName: string,
     aptNotes: string,

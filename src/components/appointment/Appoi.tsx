@@ -1,8 +1,8 @@
 import React from "react"
 import {BsFillTrashFill} from "react-icons/bs"
-import { Data } from "../../types"
+import { AppoiT } from "../../types"
 
-const Appoi = ({appointment} : {appointment : Data}) => {
+const Appoi = ({appointment} : {appointment : AppoiT}) => {
 	return (
 		<>
 			<div className="bg-gray-200 rounded my-4 grid grid-cols-[auto_1fr_auto] gap-4 w-full p-2">

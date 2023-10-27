@@ -1,23 +1,25 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { LuCalendarCheck } from "react-icons/lu"
 import Button from "../buttons/Button"
-import { Data, Inputs } from "../../types"
+import { AppoiT, Inputs } from "../../types"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 
 // eslint-disable-next-line react/prop-types, @typescript-eslint/no-explicit-any
-const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
+const Form = ({arr, setApp} : {arr : AppoiT[], setApp: any}) => {
 
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		reset,
+		formState: { errors, isSubmitSuccessful },
 	} = useForm<Inputs>()
 
 	const onSubmit : SubmitHandler<Inputs> = (data) => {
 		const newData = {
+			id : arr.length ,
 			petName: data.petName,
 			ownerName: data.ownerName,
 			aptDate: `${data.aptDate} ${data.aptTime}`,
@@ -26,6 +28,17 @@ const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 		setApp([...arr, newData])
 		toast.success("Appointment created succussfully")
 	}
+
+	useEffect(() => {
+		if (isSubmitSuccessful) reset({
+			petName : "",
+			ownerName: "",
+			aptDate : "",
+			aptTime : "",
+			aptNotes : ""
+		})
+	}, [isSubmitSuccessful])
+	
 
 	return (
 		<>
@@ -118,17 +131,18 @@ const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 					</div>
 				</div>
 				<div className="w-full grid grid-cols-[1fr_2fr]">
-					<label className="text-left" htmlFor="date">Apt Time</label>
+					<label className="text-left" htmlFor="time">Apt Time</label>
 					<div className="w-full">
 						<div className="flex flex-col items-start">
 							<input
 								type="time"
+								id="time"
 								placeholder="hellow"
 								className="w-full border border-[#ccc] px-2 py-1 rounded md:w-3/6"
 								{...register("aptTime", { 
 									required: "This field can't be null", 
 									pattern : {
-										value : /^\d([0-1]{1}[0-9]{1}|20|21|22|23):[0-5]{1}[0-9]{1}$/,
+										value : /^\d{1,2}:\d{1,2}$/,
 										message : "Invalide characters"
 									}
 								})}
@@ -147,7 +161,7 @@ const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 							{...register("aptNotes", { 
 								required: "This field can't be null", 
 								pattern : {
-									value : /^[a-zA-Z0-9]+$/gi,
+									value : /^[a-z A-Z 0-9]+$/gi,
 									message : "Invalide characters"
 								},
 								minLength : {
@@ -165,7 +179,7 @@ const Form = ({arr, setApp} : {arr : Data[], setApp: any}) => {
 				</div>
 				<Button
 					text="submit"
-					btnColor="bg-[#60a5fa] text-white px-4 py-2 rounded w-fit self-end"
+					btnColor="bg-[#60a5fa] text-white px-4 py-2 rounded w-fit self-end hover:bg-blue-600"
 				/>
 			</form>
 		</>
