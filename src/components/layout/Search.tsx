@@ -1,6 +1,7 @@
 import React, { Dispatch, useState } from "react"
 import { FilterAndSortT, FilterT, SortT } from "../../types"
 import {IoMdArrowDropdown, IoMdArrowDropup} from "react-icons/io"
+import { BsCheckLg } from "react-icons/bs"
 
 const filterBy : Array<FilterT> = ["petName", "ownerName", "aptDate"]
 const sortBy : Array<SortT> = ["Asc", "Desc"]
@@ -35,7 +36,10 @@ const Search: React.FC<ChildProps> = ({ search, setSrc, filtering, setFiltring }
 									filterBy.map((item, index) => (
 										<div key={index} className="flex justify-between p-2 hover:bg-[#60a5fa] hover:text-white rounded">
 											<label htmlFor={`firlter-${index}`} className="w-full text-left ml-2 text-sm font-medium">{item}</label>
-											<input id={`firlter-${index}`} type="radio" value={item} name="filterBy" onChange={() => setFiltring({...filtering, filter : item})} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300" />
+											<input id={`firlter-${index}`} type="radio" value={item} name="filterBy" onChange={() => setFiltring({...filtering, filter : item})} className="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300" />
+											{
+												filtering.filter === item && <BsCheckLg/>
+											}
 										</div>
 									))
 								}
@@ -44,7 +48,10 @@ const Search: React.FC<ChildProps> = ({ search, setSrc, filtering, setFiltring }
 									sortBy.map((item, index) => (
 										<div key={index} className="flex justify-between p-2 hover:bg-[#60a5fa] hover:text-white rounded">
 											<label htmlFor={`sort-${index}`} className="w-full ml-2 text-sm font-medium text-left">{item}</label>
-											<input id={`sort-${index}`} type="radio" value={item} name="sortBy" onChange={() => setFiltring({...filtering, sort : item})} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300" />
+											<input id={`sort-${index}`} type="radio" value={item} name="sortBy" onChange={() => setFiltring({...filtering, sort : item})} className="hidden w-4 h-4 text-blue-600 bg-gray-100 border-gray-300" />
+											{
+												filtering.sort === item && <BsCheckLg/>
+											}
 										</div>
 									))
 								}
