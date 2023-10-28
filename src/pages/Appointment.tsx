@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { AppoiT, FilterAndSortT } from "../types"
 import { http } from "../lib/http"
 import {LuCalendarDays} from "react-icons/lu"
@@ -24,9 +24,12 @@ const Appointment = () => {
 		setIsLoaded(true)
 	}
 
-	const deleteAppoint = (item : AppoiT)  => {
-		setData(data.filter(ele => ele.id !== item.id))
-	}
+	const deleteAppoint = useCallback(
+		(item : AppoiT) => {
+			setData(data.filter(ele => ele.id !== item.id))
+		},
+		[data],
+	)
 
 	useEffect(() => {
 		getData()
