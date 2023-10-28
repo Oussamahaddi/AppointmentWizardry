@@ -18,18 +18,18 @@ const Appointment = () => {
 		sort: "Asc"
 	});
 
-	const getData = async () => {
-		const { data } = await http.get<AppoiT[]>("data.json")
-		setData(data)
-		setIsLoaded(true)
-	}
-
-	const deleteAppoint = useCallback(
-		(item : AppoiT) => {
-			setData(data.filter(ele => ele.id !== item.id))
+	const getData = useCallback(
+		async () => {
+			const { data } = await http.get<AppoiT[]>("data.json")
+			setData(data)
+			setIsLoaded(true)
 		},
 		[data],
 	)
+
+	const deleteAppoint = ((item : AppoiT) => {
+		setData(data.filter(ele => ele.id !== item.id))
+	})
 
 	useEffect(() => {
 		getData()
